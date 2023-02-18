@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+/Debug/
+/obj/
+/bin/
+/Migrations/
+/.vs/
