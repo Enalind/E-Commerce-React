@@ -1,0 +1,73 @@
+body{
+    margin:0px;
+    padding: 0px;
+    color: white;
+}
+.home-page-wrapper{
+    background-size: cover;
+    width: calc(100vw - 60px*2);
+    height: calc(100vh - 60px - 20px*2);
+    overflow: hidden;
+    background-position: center;
+    display: grid;
+    padding: 20px 60px 20px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    text-align: center;
+}
+.home-page-wrapper h1{
+    font-size: 60px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.home-page-wrapper h2{
+    margin-top: 0px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.home-page-wrapper .special{
+    font-size: 80px;
+    animation: special-pulse 5s ease-in-out 2s infinite running forwards;;
+}
+.main-heading{
+    margin: auto;
+}
+.order-button{
+    margin:auto;
+    padding: 10px 50px 10px;
+    background-color: blueviolet;
+    border-radius: 10px;
+}
+@keyframes special-pulse {
+    0% {scale: 100%;}
+    4% {scale: 120%;}
+    8%{scale: 100%;}
+    100%{scale: 100%;}
+}
+.customer-wrapper{
+    background: linear-gradient(90deg, rgb(255, 131, 131), rgb(228, 24, 228));
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: rgba(0, 0, 0, 0.2);
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    
+}
+.testemonial{
+    margin: auto;
+    font-size: 20px;
+    font-style: italic;
+}
+a{
+    color: white;
+    text-decoration: none;
+}
+b a{
+    text-decoration: underline;
+}
+.sub{
+    font-size: 20px;
+    margin: auto;
+    ;
+}
