@@ -8,7 +8,7 @@ var MyAllowWebsiteOrigins = "_myAllowWebsiteOrigins";
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MyDbContext>(options => {
-    options.UseNpgsql(builder.Configuration["Default"], m => m.UseFuzzyStringMatch());
+    options.UseNpgsql(builder.Configuration["Default"]);
 });
 builder.Services.AddCors(options =>
 {
@@ -31,5 +31,6 @@ app.UseCors(MyAllowWebsiteOrigins);
 
 
 app.MapGet("/products", async (MyDbContext context) => await context.Bikes.ToListAsync());
+app.MapGet("/products/fuzzy/", (MyDbContext context, string match) => context.Bikes.FromSqlRaw("SELECT * FROM \"Bikes\" WHERE DIFFERENCE(\"Name\", {0}) > 2", match));
 
 app.Run();

@@ -15,7 +15,6 @@ public class MyDbContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.HasPostgresExtension("fuzzystrmatch");
 
     }
     public DbSet<Order> Orders { get; set; }
