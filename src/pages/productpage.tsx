@@ -22,7 +22,13 @@ export default function ProductPage() {
         .finally(() => {setIsLoading(false);});
     });
     if(isLoading) {
-        return <div>Loading...</div>
+        
+        return (
+        <>
+            <Navbar/>
+            <div>Loading...</div>
+        </>
+        )
     }
     else{
         return (
@@ -31,9 +37,7 @@ export default function ProductPage() {
             <div className="container">
                 {products.map((product) => (Product(product)))}
             </div>
-            <div>
-                <h1>Product Page</h1>
-            </div>
+            
             </>
         )
     }
