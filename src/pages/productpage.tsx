@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import './productpage.css'
-import Navbar from "../components/navbar";
-import Product from "../components/product";
+import Navbar from "../components/Navbar";
+import Product from "../components/Product";
 import { useSearchParams } from "react-router-dom";
 
 export default function ProductPage() {

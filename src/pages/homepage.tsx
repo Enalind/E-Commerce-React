@@ -1,6 +1,6 @@
 import React from "react";
 import './homepage.css'
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 import BgImage from "../assets/HomePageBike.jpg"
 
 export default function HomePage() {

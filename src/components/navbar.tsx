@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import BikeManLogo from '../assets/BikeManLogoNew.svg'
 import './navbar.css'
-import searchBarItems from './search-items';
+import searchBarItems from './SearchItems';
 import { useNavigate } from 'react-router-dom';
 export default function Navbar(){
     const [searchBar, setSearchBar] = useState('')

@@ -10,5 +10,6 @@ public class Bike
     public int ProductID { get; set; }
     public string Name { get; set; }
     public int Price { get; set; }
+    public string Image { get; set; }
     public List<Order> Orders { get; set; }
 }

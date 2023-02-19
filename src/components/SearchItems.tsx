@@ -1,5 +1,5 @@
 import React from "react";
-import './search-items.css'
+import './SearchItems.css'
 export default function searchBarItems(searchItems: Array<any>){
     return(
         <div className="search-wrapper">
