@@ -37,7 +37,6 @@ export default function ProductPage() {
             <div className="container">
                 {products.map((product) => (Product(product)))}
             </div>
-            
             </>
         )
     }

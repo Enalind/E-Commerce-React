@@ -7,7 +7,9 @@ var MyAllowWebsiteOrigins = "_myAllowWebsiteOrigins";
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(builder.Configuration["Default"]));
+builder.Services.AddDbContext<MyDbContext>(options => {
+    options.UseNpgsql(builder.Configuration["Default"], m => m.UseFuzzyStringMatch());
+});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowWebsiteOrigins, policy =>
@@ -31,8 +33,3 @@ app.UseCors(MyAllowWebsiteOrigins);
 app.MapGet("/products", async (MyDbContext context) => await context.Bikes.ToListAsync());
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
