@@ -3,14 +3,15 @@ import { useState } from 'react';
 import BikeManLogo from '../assets/BikeManLogoNew.svg'
 import './navbar.css'
 import searchBarItems from './search-items';
+import { useNavigate } from 'react-router-dom';
 export default function Navbar(){
     const [searchBar, setSearchBar] = useState('')
     const [searchItems, setSearchItems] = useState([])
-
+    const navigate = useNavigate();
+    
     function submitHandler(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault()
-        alert(`You searched for ${searchBar}`)
-        console.log(searchBar)
+        navigate(`/products/?search=${searchBar}`);
     }
     function changeHandler(e: React.ChangeEvent<HTMLInputElement>){
         e.preventDefault()
