@@ -3,4 +3,5 @@
     height: 250px;
     border-radius: 50px;
     object-fit: cover;
+    box-shadow: 10px 10px rgba(132, 93, 93, 0.589);
 }
