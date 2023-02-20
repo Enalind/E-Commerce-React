@@ -7,6 +7,7 @@
     <UserSecretsId>5fb2860b-4fdb-4805-baff-715513d3f1eb</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
+	  <!--<DockerfileRunArguments>-p 7282:7282</DockerfileRunArguments>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.FuzzyStringMatch" Version="5.0.10" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    
   </ItemGroup>
 
   <ItemGroup>

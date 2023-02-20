@@ -10,7 +10,8 @@ export default function ProductDetails(){
     const [product, setProduct] = React.useState({
         name: "",
         image: "",
-        price: 0
+        price: 0,
+        description: ""
     });
     let id = searchParams.get('id');
 
@@ -44,7 +45,8 @@ export default function ProductDetails(){
                     <img id="product-main-image" src={`../../${product.image}.jpg`} alt={product.name}/>
                     <div id="text-wrapper">
                         <h1>{product.name}</h1>
-                        <p>{product.price}$</p>
+                        <h2>{product.price}$</h2>
+                        <p>{product.description}</p>
                     </div>
                 </div>
             </>
