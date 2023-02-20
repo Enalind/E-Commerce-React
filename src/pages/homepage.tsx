@@ -1,7 +1,7 @@
 import React from "react";
 import './homepage.css'
 import Navbar from "../components/Navbar";
-import BgImage from "../assets/HomePageBike.jpg"
+import BgImage from "/HomePageBike.jpg"
 
 export default function HomePage() {
     return (

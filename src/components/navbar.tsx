@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import BikeManLogo from '../assets/BikeManLogoNew.svg'
 import './navbar.css'
 import searchBarItems from './SearchItems';
 import { useNavigate } from 'react-router-dom';
@@ -28,7 +27,7 @@ export default function Navbar(){
     }
     return(
         <nav>
-            <a className='nav-item logo-row' href="/"><p className='logo-text'>BikeMan</p><img src={BikeManLogo} alt="logo" className="logo"/></a>
+            <a className='nav-item logo-row' href="/"><p className='logo-text'>BikeMan</p><img src={'../../BikeManLogoNew.svg'} alt="logo" className="logo"/></a>
             <a className='nav-item' href="/products">Products</a>
             <a className='nav-item' href="/about">About</a>
             <a className='nav-item' href="/contact">Contact</a>

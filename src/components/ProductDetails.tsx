@@ -2,26 +2,10 @@ import React from "react";
 import './ProductDetails.css'
 import { useSearchParams } from "react-router-dom";
 import Navbar from "./Navbar";
-import BlackBike from '../assets/BlackBike.jpg'
-import LeatherBike from '../assets/LeatherBike.jpg'
-import SportyBike from '../assets/SportyBike.jpg'
 
 export default function ProductDetails(){
     const [searchParams, setSearchParams] = useSearchParams();
     const [isLoading, setIsLoading] = React.useState(true);
-    function displayImage(image: string) {
-        switch (image) {
-            case 'BlackBike':
-                return BlackBike
-            case 'LeatherBike':
-                return LeatherBike
-            case 'SportyBike':
-                return SportyBike
-            default:
-                return BlackBike
-                
-        }
-    }
     
     let product: any;
     
@@ -51,7 +35,7 @@ export default function ProductDetails(){
         return(
             <>
                 <Navbar/>
-                <img src={displayImage(product.image)} alt={product.name}/>
+                <img src={`../../public/${product.image}`} alt={product.name}/>
                 <h1>{product.name}</h1>
                 
             </>
