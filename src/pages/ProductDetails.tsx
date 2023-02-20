@@ -1,21 +1,26 @@
 import React from "react";
 import './ProductDetails.css'
 import { useSearchParams } from "react-router-dom";
-import Navbar from "./Navbar";
+import Navbar from "../components/Navbar";
+
 
 export default function ProductDetails(){
     const [searchParams, setSearchParams] = useSearchParams();
     const [isLoading, setIsLoading] = React.useState(true);
-    
-    let product: any;
-    
-    fetch(`https://localhost:7282/products/byid/${searchParams.get('id')}`)
+    const [product, setProduct] = React.useState({
+        name: "",
+        image: "",
+        price: 0
+    });
+    let id = searchParams.get('id');
+
+    fetch(`https://localhost:7282/products/byid?id=${id}`)
     .then(response => {
         if (!response.ok) {
             throw new Error(response.statusText);
         }
         return response.json();})
-    .then((data) => {product = data})
+    .then((data) => {setProduct(data)})
     .catch((error) => console.log(error))
     .finally(() => setIsLoading(false));
     
@@ -35,9 +40,13 @@ export default function ProductDetails(){
         return(
             <>
                 <Navbar/>
-                <img src={`../../public/${product.image}`} alt={product.name}/>
-                <h1>{product.name}</h1>
-                
+                <div id="product-detail-container">
+                    <img id="product-main-image" src={`../../public/${product.image}.jpg`} alt={product.name}/>
+                    <div id="text-wrapper">
+                        <h1>{product.name}</h1>
+                        <p>{product.price}</p>
+                    </div>
+                </div>
             </>
         )
     }

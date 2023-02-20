@@ -1,13 +1,13 @@
 import React from "react";
-import './product.css'
+import './Product.css'
 
 
-export default function Product({id, name, price, image} : {id: number, name: string, price: number, image: string}) {
+export default function Product({productID, name, price, image} : {productID: number, name: string, price: number, image: string}) {
 
     return (
-        <div className="product" key={id}>
-            <img className="product-image" src={`../../${image}.jpg`} alt={name} />
+        <a href={`/ProductsPages?id=${productID}`} key={productID}>
+            <img id="product-image" src={`../../${image}.jpg`} alt={name} />
             <h3>{name}, {price}$</h3>
-        </div>
+        </a>
     )
 }

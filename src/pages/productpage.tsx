@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import './productpage.css'
+import './ProductPage.css'
 import Navbar from "../components/Navbar";
 import Product from "../components/Product";
 import { useSearchParams } from "react-router-dom";
@@ -33,7 +33,7 @@ export default function ProductPage() {
             .catch((error) => {console.log(error); setError(error);})
             .finally(() => {setIsLoading(false);});
         }
-    });
+    },[]);
     
     if(isLoading) {
         
@@ -48,7 +48,7 @@ export default function ProductPage() {
         return (
             <>
             <Navbar />
-            <div className="container">
+            <div id="container">
                 {products.map((product) => (Product(product)))}
             </div>
             </>

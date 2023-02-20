@@ -4,7 +4,7 @@ export default function searchBarItems(searchItems: Array<any>){
     return(
         <div className="search-wrapper">
             {searchItems.map((item, index) => (
-                <div key={index} className="search-item">{item.name} {item.price}$</div>
+                <a href={`/ProductsPages?id=${item.productID}`} key={index} className="search-item">{item.name} {item.price}$</a>
             ))}
         </div>
     )
