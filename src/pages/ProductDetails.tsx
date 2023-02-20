@@ -41,10 +41,10 @@ export default function ProductDetails(){
             <>
                 <Navbar/>
                 <div id="product-detail-container">
-                    <img id="product-main-image" src={`../../public/${product.image}.jpg`} alt={product.name}/>
+                    <img id="product-main-image" src={`../../${product.image}.jpg`} alt={product.name}/>
                     <div id="text-wrapper">
                         <h1>{product.name}</h1>
-                        <p>{product.price}</p>
+                        <p>{product.price}$</p>
                     </div>
                 </div>
             </>
