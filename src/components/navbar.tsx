@@ -3,9 +3,12 @@ import { useState } from 'react';
 import './navbar.css'
 import searchBarItems from './SearchItems';
 import { useNavigate } from 'react-router-dom';
+import ShoppingCartMenu from './ShoppingCartMenu';
 export default function Navbar(){
     const [searchBar, setSearchBar] = useState('')
     const [searchItems, setSearchItems] = useState([])
+    const [shoppingCartMenuOpen, setShoppingCartMenuOpen] = useState(false)
+
     const navigate = useNavigate();
     
     function submitHandler(e: React.FormEvent<HTMLFormElement>){
@@ -25,17 +28,25 @@ export default function Navbar(){
         .then((data) => {setSearchItems(data)})
         .catch((error) => console.log(error))
     }
+    
     return(
         <nav>
             <a className='nav-item logo-row' href="/"><p className='logo-text'>BikeMan</p><img src={'../../BikeManLogoNew.svg'} alt="logo" className="logo"/></a>
             <a className='nav-item' href="/products">Products</a>
             <a className='nav-item' href="/about">About</a>
             <a className='nav-item' href="/contact">Contact</a>
-            <form onSubmit={e => submitHandler(e)}>
+            <div id='shopping-cart-wrapper'>
+                    <img src={'../../cart-shopping-solid.svg'} alt="shopping cart" id="shopping-cart" onClick={() => setShoppingCartMenuOpen(!shoppingCartMenuOpen)}/>
+                    {shoppingCartMenuOpen ? <ShoppingCartMenu/>: null}
+                </div>
+            
+            
+            <form id="search-form" onSubmit={e => submitHandler(e)}>
+                
                 <input className='nav-item search' value={searchBar} onChange={e => changeHandler(e)}  type='text'/>
                 {searchItems.length > 0 && searchBarItems(searchItems)}
-
             </form>
+            
         </nav>
     )
 }

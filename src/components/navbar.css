@@ -15,20 +15,34 @@ nav{
 .logo-row{
     display: flex;
     align-items: center;
-    margin-right: auto;
 }
 .logo-text{
     margin:auto 20px auto;
     font-size: 20px;
 }
 
-
+#search-form{
+    margin-left:20px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
 .search{
-    margin-top: 15px;
     width: 300px;
     height: 20px;
     border-radius: 10px;
     background-color: var(--secondary-color);
     padding-left: 10px;
     color:white;
+}
+#shopping-cart{
+    width: 20px;
+    height: 20px;
+}
+#shopping-cart:hover{
+    cursor: pointer;
+}
+#shopping-cart-wrapper{
+    display: flex;
+    flex-direction: column;
+    margin: auto 10px auto auto;
 }
