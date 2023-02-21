@@ -1,9 +1,9 @@
 #shopping-cart-menu{
     display: flex;
     flex-direction: column;
-    width: 14vw;
+    width: 20vw;
     position: absolute;
-    transform: translateX(calc(10px - 7vw));
+    transform: translateX(calc(10px - 10vw));
     margin-top: 30px;
     text-align: center;
 }

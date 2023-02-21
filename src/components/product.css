@@ -5,3 +5,20 @@
     object-fit: cover;
     box-shadow: 10px 10px rgba(132, 93, 93, 0.589);
 }
+.add-to-cart{
+    background-color: var(--secondary-color);
+}
+.product-subtext{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+.product-subtext p{
+    margin: auto 5px auto;
+    border-radius: 5px;
+    padding: 5px;
+}
+.product-subtext p:hover{
+    cursor: pointer;
+}

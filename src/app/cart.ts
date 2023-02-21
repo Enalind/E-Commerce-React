@@ -35,7 +35,16 @@ export const cartSlice = createSlice({
     },
     // Use the PayloadAction type to declare the contents of `action.payload`
     addCartItem: (state, action: PayloadAction<CartItem>) => {
-      state.value.push(action.payload)
+      let doAdd = true 
+      state.value.forEach((item, i) => {
+        if(item.name === action.payload.name){
+          state.value[i].quantity += 1
+          doAdd = false
+        }
+      })
+      if(doAdd){state.value.push(action.payload)}
+      
+      
     },
   },
 })
