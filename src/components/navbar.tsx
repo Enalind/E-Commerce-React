@@ -42,7 +42,6 @@ export default function Navbar(){
             
             
             <form id="search-form" onSubmit={e => submitHandler(e)}>
-                
                 <input className='nav-item search' value={searchBar} onChange={e => changeHandler(e)}  type='text'/>
                 {searchItems.length > 0 && searchBarItems(searchItems)}
             </form>

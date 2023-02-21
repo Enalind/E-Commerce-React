@@ -30,6 +30,9 @@ export const cartSlice = createSlice({
     decrement: (state, action: PayloadAction<number>) => {
         state.value[action.payload].quantity -= 1
     },
+    setQuantity: (state, action: PayloadAction<{index: number, quantity: number}>) => {
+      state.value[action.payload.index].quantity = action.payload.quantity
+    },
     removeItem: (state, action: PayloadAction<number>) => {
         state.value.splice(action.payload, 1)
     },
@@ -47,7 +50,7 @@ export const cartSlice = createSlice({
   },
 })
 
-export const { increment, decrement, addCartItem, removeItem } = cartSlice.actions
+export const { increment, decrement, setQuantity, addCartItem, removeItem } = cartSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectCount = (state: RootState) => state.cart.value.length
