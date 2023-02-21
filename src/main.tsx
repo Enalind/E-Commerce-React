@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import ProductPage from './pages/ProductPage'
 import ProductDetails from './pages/ProductDetails'
 import './index.css'
+import CheckoutPage from './pages/CheckoutPage';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path="/" element={<HomePage/>}/>
         <Route path='/Products' element={<ProductPage/>}/>
         <Route path='/ProductsPages' element={<ProductDetails/>}/>
+        <Route path='/checkout' element={<CheckoutPage/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
