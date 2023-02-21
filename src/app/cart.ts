@@ -43,8 +43,6 @@ export const cartSlice = createSlice({
         }
       })
       if(doAdd){state.value.push(action.payload)}
-      
-      
     },
   },
 })

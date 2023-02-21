@@ -26,3 +26,13 @@
 #item-quantity{
     font-size: 30px;
 }
+#checkout{
+    margin-left:auto;
+    background-color: var(--primary-color);
+    padding: 0 5px 0;
+    border-radius: 20px;
+    color: black
+}
+#checkout:hover{
+    cursor: pointer;
+}

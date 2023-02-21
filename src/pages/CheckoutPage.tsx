@@ -34,5 +34,9 @@ export default function CheckoutPage() {
                 <img src="../../xmark-solid.svg" alt="check" className="checkout-item-control" onClick={() => dispatch(removeItem(index))}/>
             </div>
         })}
+        <div className="checkout-item">
+            <p className="checkout-item-info">Total: {items.reduce((acc, item) => acc + item.price * item.quantity, 0)}</p>
+            <h1 className="checkout-item-info" id="checkout">Checkout</h1>
+        </div>
     </>)
 }
