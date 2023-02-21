@@ -15,7 +15,7 @@ interface CartItem {
 // Define the initial state using that type
 const initialState: CartState = {
   value: [
-    {name: 'item1', price: 100, quantity: 1, image: '../../LeatherBike.jpg'}
+    {name: 'item1', price: 100, quantity: 1, image: 'LeatherBike'}
   ],
 }
 
