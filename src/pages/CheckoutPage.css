@@ -36,3 +36,26 @@
 #checkout:hover{
     cursor: pointer;
 }
+
+#checkout-popup-background{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    backdrop-filter: blur(2px);
+    width: 100vw;
+    height: 100vh;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#checkout-popup{
+    position: fixed;
+    background-color: rgb(22, 126, 217);
+    width: 40vw;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+}

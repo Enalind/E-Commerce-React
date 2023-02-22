@@ -34,10 +34,7 @@ export default function ShoppingCartMenu() {
                         <img src="../../plus-solid.svg" className="shopping-cart-action-icon" onClick={() => {
                             dispatch(increment(index))
                         }}/>
-                        <form onSubmit={(e) => handleChange(e, index)}>
-                            <input type="text" id="quantity-input" placeholder={item.quantity.toString()}/>
-                            <input type="submit" id="submit-button"></input>
-                        </form>
+                        <p>{item.quantity}</p>
                         <img src="../../minus-solid.svg" className="shopping-cart-action-icon" onClick={() => {
                             dispatch(decrement(index))
                         }}/>

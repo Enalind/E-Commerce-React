@@ -8,6 +8,12 @@ import { decrement, increment, removeItem } from "../app/cart";
 export default function CheckoutPage() {
     const items = useAppSelector((state) => state.cart.value)
     const dispatch = useDispatchAppSelector()
+    const [showPopup, setShowPopup] = React.useState(false)
+
+    function checkout(){
+        setShowPopup(!showPopup)
+    }
+
     if(items === null){
         return(<>
         <Navbar/>
@@ -34,9 +40,14 @@ export default function CheckoutPage() {
                 <img src="../../xmark-solid.svg" alt="check" className="checkout-item-control" onClick={() => dispatch(removeItem(index))}/>
             </div>
         })}
-        <div className="checkout-item">
+        <div id="checkout-popup-background" onClick={(event) => {if(event.currentTarget === event.target){setShowPopup(false)}}} style={{visibility: showPopup ? "visible" : "hidden"}}>
+            <div id="checkout-popup" onClick={() => true}>
+                <p>Hello</p>
+            </div>
+        </div>
+        <div className="checkout-item" >
             <p className="checkout-item-info">Total: {items.reduce((acc, item) => acc + item.price * item.quantity, 0)}</p>
-            <h1 className="checkout-item-info" id="checkout">Checkout</h1>
+            <h1 className="checkout-item-info" id="checkout" onClick={() => checkout()}>Checkout</h1>
         </div>
     </>)
 }
