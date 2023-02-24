@@ -1,0 +1,28 @@
+#shopping-cart-menu{
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+    position: absolute;
+    transform: translateX(calc(10px - 10vw));
+    margin-top: 30px;
+    text-align: center;
+}
+.shopping-cart-item{
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    border: 2px solid black;
+    display: flex;
+    gap:5px;
+    justify-content: center;
+}
+.shopping-cart-action-icon{
+    width: 20px;
+    height: 20px;
+    margin: auto 5px auto;
+}
+.shopping-cart-action-icon:hover{
+    cursor: pointer;
+}
+#submit-button{
+    display: none;
+}

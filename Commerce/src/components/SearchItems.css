@@ -1,0 +1,14 @@
+.search-wrapper{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    padding: 10px;
+    border-radius: 5px;
+    width: 300px;
+    padding-right: 10px;
+    margin-left: 50px;
+    position: absolute;
+}
+.search-item{
+    text-align: center;
+}

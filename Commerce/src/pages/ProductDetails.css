@@ -1,0 +1,17 @@
+#product-main-image{
+    width: 60vw;
+    height: 89vh;
+    object-fit: cover;
+    display: block;
+    border-radius: 50px;
+    box-shadow: 10px 10px rgba(132, 93, 93, 0.589);
+}
+#product-detail-container{
+    display: grid;
+    grid-template-columns: min-content auto;
+    gap: 2%;
+    margin: 10px 20px 10px;
+}
+#text-wrapper{
+    text-align: center;
+}

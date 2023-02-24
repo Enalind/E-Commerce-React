@@ -1,0 +1,110 @@
+.checkout-item{
+    display:flex;
+    background-color: var(--secondary-color);
+    margin: 10px;
+    border-radius: 20px;
+    padding: 10px 20px 10px;
+}
+.checkout-item-info{
+    margin:auto 10px auto;
+}
+#checkout-item-image{
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+#checkout-item-controls{
+    display: flex;
+    margin: auto 5vw auto auto;
+}
+.checkout-item-control{
+    width: 50px;
+    height: 50px;
+    margin: auto 20px auto;
+}
+#item-quantity{
+    font-size: 30px;
+}
+#checkout{
+    margin-left:auto;
+    background-color: var(--primary-color);
+    padding: 0 5px 0;
+    border-radius: 20px;
+    color: black
+}
+#checkout:hover{
+    cursor: pointer;
+}
+
+#checkout-popup-background{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    backdrop-filter: blur(2px);
+    width: 100vw;
+    height: 100vh;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#checkout-popup{
+    position: fixed;
+    background-color: #333232;;
+    width: 30vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    flex-direction: column;
+}
+.checkout-field{
+    width: 70%;
+    height: 7%;
+    border-radius: 10px;
+    background-color: var(--secondary-color);
+    color: white;
+    font-size: 100%;
+    padding: 0 2% 0;
+    margin: 20px;
+}
+.checkout-field::placeholder{
+    color: aqua;
+}
+#checkout-submit{
+    margin: 5%;
+    margin-left: auto;
+    margin-right: 12%;
+    padding: 2% 5% 2%;
+    border-radius: 20px;
+    background-color: var(--primary-color);
+    color: black;
+    font-weight: bold;
+    font-size: 100%;
+}
+
+.message-show{
+    animation: 3s linear 0s slide-in-out;
+    margin-left: -200px;
+}
+@keyframes slide-in-out {
+    0%{
+        margin-left: -200px;
+    }
+    25%{
+        margin-left: 100px;
+    }
+    75%{
+        margin-left: 100px;
+    }
+    100%{
+        margin-left: -200px;
+    }
+}
+#message{
+    position: absolute;
+    bottom: 20vh;
+    font-size: large;
+}
