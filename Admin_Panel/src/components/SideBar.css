@@ -1,0 +1,21 @@
+#sidebar-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 16vw;
+    height: 96vh;
+    padding: 2vh 2vw 2vh;
+    
+}
+.sidebar-item{
+    border-bottom: 2px solid white;
+    display: flex;
+    align-items: center;
+    height: 100px;
+}
+
+.bottom-item{
+    border-bottom: none;
+}
+.sidebar-text{
+    margin: 3vh 0 3vh;
+}
