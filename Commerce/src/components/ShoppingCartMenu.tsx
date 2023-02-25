@@ -31,12 +31,13 @@ export default function ShoppingCartMenu() {
                 return(
                     <div className="shopping-cart-item" key={item.name + index.toString}>
                         <p>{item.name} {item.price}$</p>
-                        <img src="../../plus-solid.svg" className="shopping-cart-action-icon" onClick={() => {
-                            dispatch(increment(index))
-                        }}/>
-                        <p>{item.quantity}</p>
                         <img src="../../minus-solid.svg" className="shopping-cart-action-icon" onClick={() => {
                             dispatch(decrement(index))
+                        }}/>
+                        
+                        <p>{item.quantity}</p>
+                        <img src="../../plus-solid.svg" className="shopping-cart-action-icon" onClick={() => {
+                            dispatch(increment(index))
                         }}/>
                         <img src="../../xmark-solid.svg" alt="check" className="shopping-cart-action-icon" onClick={() => dispatch(removeItem(index))}/>
                     </div>
