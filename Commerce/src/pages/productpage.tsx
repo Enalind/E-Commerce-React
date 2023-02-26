@@ -12,7 +12,7 @@ export default function ProductPage() {
     useEffect(() => {
         if(searchParams.get('search') !== null){
         
-            fetch(`https://localhost:7282/products/fuzzy/?match=${searchParams.get('search')}`, {method: "GET"})
+            fetch(`https://localhost:44329/products/fuzzy/?match=${searchParams.get('search')}`, {method: "GET"})
             .then(response => {
                 if (!response.ok) {
                     console.log("Error")
@@ -23,13 +23,13 @@ export default function ProductPage() {
             .finally(() => {setIsLoading(false);});
         }
         else{
-            fetch("https://localhost:7282/products", {method: "GET"})
+            fetch("https://localhost:44329/products", {method: "GET"})
             .then(response => {
                 if (!response.ok) {
                     console.log("Error")
                 }
                 return response.json();})
-            .then((data) => {setProducts(data); console.log(data); })
+            .then((data) => {setProducts(data); })
             
             .catch((error) => {console.log(error);})
             .finally(() => {setIsLoading(false);});

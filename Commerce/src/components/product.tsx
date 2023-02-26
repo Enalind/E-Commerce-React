@@ -14,10 +14,7 @@ export default function Product({product}: {product: CartItem})
     }
     function displayItemAdding(){
         const itemIndex = items.findIndex((i => i.productID === product.productID))
-        console.log(product)
         
-        
-        console.log(product.productID)
         
         
         if(itemIndex === -1){

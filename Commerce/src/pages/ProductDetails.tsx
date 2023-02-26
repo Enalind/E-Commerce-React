@@ -15,7 +15,7 @@ export default function ProductDetails(){
     });
     let id = searchParams.get('id');
 
-    fetch(`https://localhost:7282/products/byid?id=${id}`)
+    fetch(`https://localhost:44329/products/byid?id=${id}`)
     .then(response => {
         if (!response.ok) {
             throw new Error(response.statusText);

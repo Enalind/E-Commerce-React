@@ -26,7 +26,7 @@ export default function ShoppingCartMenu() {
         e.currentTarget.value = "";
     }
     return(
-        <div id="shopping-cart-menu">
+        <div className="shopping-cart-menu">
             {items.map((item, index) => {
                 return(
                     <div className="shopping-cart-item" key={item.name + index.toString}>

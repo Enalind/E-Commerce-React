@@ -23,7 +23,7 @@ export default function CheckoutPage() {
     }
     function postUser({Name, Adress, Email}: {Name: String, Adress: String, Email: String}){
         let UserID: string;
-        let fetchPromise = fetch("https://localhost:7282/users", {
+        let fetchPromise = fetch("https://localhost:44329/users", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ export default function CheckoutPage() {
         return items.map((item) =>{
             console.log(item)
             
-            fetch("https://localhost:7282/orders",{
+            fetch("https://localhost:44329/orders",{
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
