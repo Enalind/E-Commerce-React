@@ -17,9 +17,9 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowWebsiteOrigins, policy =>
     {
-        policy.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .WithOrigins("http://localhost:5173/")
+        
+        policy.AllowAnyHeader()
+            .WithOrigins("http://localhost:5173")
             .AllowCredentials();
     });
 });
@@ -33,7 +33,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors(MyAllowWebsiteOrigins);
 app.MapHub<OrderHub>("/hubs/order");
-
 app.MapGet("/products", async (MyDbContext context) => await context.Bikes.ToListAsync());
 app.MapGet("/products/fuzzy/", (MyDbContext context, string match) => context.Bikes.FromSqlRaw("SELECT * FROM \"Bikes\" WHERE DIFFERENCE(\"Name\", {0}) > 2", match));
 app.MapGet("/products/byid", async (MyDbContext context, int id) => await context.Bikes.Where(p => p.ProductID == id).FirstOrDefaultAsync());
@@ -59,11 +58,12 @@ app.MapPost("/users", async (MyDbContext context, UserBase user) => {
     var createdID = new { id = context.Users.Where(u => u.Adress == user.Adress && u.Email == user.Email).SingleOrDefault().UserId };
     
     return Results.Ok(createdID); });
-app.MapPost("/orders", async (MyDbContext context, OrderBase order, OrderHub hub) => {
+app.MapPost("/orders", async (MyDbContext context, OrderBase order, IHubContext<OrderHub, IOrderClient> hub) =>
+{
     var convertedOrder = order.OrderConvert();
-    hub.SendOrderUpdate(convertedOrder);
-    await context.AddAsync(convertedOrder); 
-    await context.SaveChangesAsync(); return Results.Ok(); 
+    hub.Clients.All.ReciveOrder(convertedOrder);
+    await context.AddAsync(convertedOrder);
+    await context.SaveChangesAsync(); return Results.Ok();
 });
 app.MapPost("/products", async (MyDbContext context, BikeBase bike) => { await context.AddAsync(bike.BikeConvert()); await context.SaveChangesAsync(); return Results.Ok(); });
 app.Run();
