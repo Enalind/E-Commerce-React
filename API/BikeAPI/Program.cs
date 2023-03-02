@@ -19,7 +19,8 @@ builder.Services.AddCors(options =>
     {
         
         policy.AllowAnyHeader()
-            .WithOrigins("http://localhost:5173")
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:5173", "http://localhost:8000")
             .AllowCredentials();
     });
 });
@@ -61,7 +62,7 @@ app.MapPost("/users", async (MyDbContext context, UserBase user) => {
 app.MapPost("/orders", async (MyDbContext context, OrderBase order, IHubContext<OrderHub, IOrderClient> hub) =>
 {
     var convertedOrder = order.OrderConvert();
-    hub.Clients.All.ReciveOrder(convertedOrder);
+    await hub.Clients.All.ReciveOrder(convertedOrder);
     await context.AddAsync(convertedOrder);
     await context.SaveChangesAsync(); return Results.Ok();
 });
