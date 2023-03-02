@@ -35,6 +35,7 @@ app.UseHttpsRedirection();
 app.UseCors(MyAllowWebsiteOrigins);
 app.MapHub<OrderHub>("/hubs/order");
 app.MapGet("/products", async (MyDbContext context) => await context.Bikes.ToListAsync());
+app.MapGet("/orders", async (MyDbContext context) => await context.Orders.ToListAsync());
 app.MapGet("/products/fuzzy/", (MyDbContext context, string match) => context.Bikes.FromSqlRaw("SELECT * FROM \"Bikes\" WHERE DIFFERENCE(\"Name\", {0}) > 2", match));
 app.MapGet("/products/byid", async (MyDbContext context, int id) => await context.Bikes.Where(p => p.ProductID == id).FirstOrDefaultAsync());
 app.MapGet("/orders/withperson", async (MyDbContext context) =>

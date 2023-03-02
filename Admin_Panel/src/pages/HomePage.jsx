@@ -8,8 +8,16 @@ export default function HomePage(){
     const latestOrder = useRef(null);
 
     latestOrder.current = orders;
+    async function getOrders(){
+        const response = await fetch("https://localhost:44329/orders", {method: "GET"})
+        if(!response.ok){
+            console.log("Error fetching products")
+        }
+        const ordersJson = await response.json()
+        setOrders(ordersJson)
+    } 
 
-    useEffect(() => {
+    async function getOrdersSignalR(){
         const connection = new HubConnectionBuilder()
             .withUrl("https://localhost:44329/hubs/order")
             .withAutomaticReconnect()
@@ -24,7 +32,11 @@ export default function HomePage(){
                 })
             })
             .catch(e => console.log("Connection failed ", e))
-    })
+    }
+    useEffect(() => {
+        getOrders()
+        getOrdersSignalR()
+    }, [])
 
     return(
         <div className="page-wrapper">
