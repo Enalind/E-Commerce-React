@@ -35,4 +35,29 @@ public class Order
     
     public User User { get; set; }
     public Guid UserId { get; set; }
+
+    public OrderUnix convertUnix()
+    {
+        return new OrderUnix
+        {
+            ProductID = ProductID,
+            OrderID = OrderID,
+            Created = Created,
+            NrBikesOrdered = NrBikesOrdered,
+            UserId = UserId,
+            CreatedUnix = ((DateTimeOffset)this.Created).ToUnixTimeSeconds()
+        };
+    }
+    
+}
+
+public class OrderUnix
+{
+    public int ProductID { get; set; }
+    public int OrderID { get; set; }
+    public DateTime Created { get; set; }
+    public int NrBikesOrdered { get; set; }
+    public Guid UserId { get; set; }
+
+    public long CreatedUnix { get; set; }
 }

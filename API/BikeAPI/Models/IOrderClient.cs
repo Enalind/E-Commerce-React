@@ -2,5 +2,5 @@
 
 public interface IOrderClient
 {
-    Task ReciveOrder(Order order);
+    Task ReciveOrder(OrderUnix order);
 }

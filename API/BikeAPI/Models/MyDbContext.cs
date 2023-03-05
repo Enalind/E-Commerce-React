@@ -17,13 +17,13 @@ public class MyDbContext : DbContext
     {
         modelBuilder.Entity<User>()
             .Property(u => u.Created)
-            .HasDefaultValueSql("now()");
+            .HasDefaultValueSql("timezone('utc', now())");
         modelBuilder.Entity<User>()
             .Property(u => u.UserId)
             .HasDefaultValueSql("gen_random_uuid()");
         modelBuilder.Entity<Order>()
             .Property(o => o.Created)
-            .HasDefaultValueSql("now()");
+            .HasDefaultValueSql("timezone('utc', now())");
     }
     public DbSet<Order> Orders { get; set; }
     public DbSet<Bike> Bikes { get; set; }

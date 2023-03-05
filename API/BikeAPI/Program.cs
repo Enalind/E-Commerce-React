@@ -10,6 +10,7 @@ var MyAllowWebsiteOrigins = "_myAllowWebsiteOrigins";
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
+builder.WebHost.ConfigureKestrel(o => o.ListenLocalhost(7278));
 builder.Services.AddDbContext<MyDbContext>(options => {
     options.UseNpgsql(builder.Configuration["Default"]);
 });
@@ -20,7 +21,7 @@ builder.Services.AddCors(options =>
         
         policy.AllowAnyHeader()
             .AllowAnyMethod()
-            .WithOrigins("http://localhost:5173", "http://localhost:8000")
+            .WithOrigins("http://localhost:5173", "http://localhost:8000", "http://localhost:5555")
             .AllowCredentials();
     });
 });
@@ -35,7 +36,11 @@ app.UseHttpsRedirection();
 app.UseCors(MyAllowWebsiteOrigins);
 app.MapHub<OrderHub>("/hubs/order");
 app.MapGet("/products", async (MyDbContext context) => await context.Bikes.ToListAsync());
-app.MapGet("/orders", async (MyDbContext context) => await context.Orders.ToListAsync());
+app.MapGet("/orders", async (MyDbContext context) => {
+    var orders = await context.Orders.ToListAsync();
+    return orders.ConvertAll<OrderUnix>(o => o.convertUnix());
+    
+});
 app.MapGet("/products/fuzzy/", (MyDbContext context, string match) => context.Bikes.FromSqlRaw("SELECT * FROM \"Bikes\" WHERE DIFFERENCE(\"Name\", {0}) > 2", match));
 app.MapGet("/products/byid", async (MyDbContext context, int id) => await context.Bikes.Where(p => p.ProductID == id).FirstOrDefaultAsync());
 app.MapGet("/orders/withperson", async (MyDbContext context) =>
@@ -63,9 +68,13 @@ app.MapPost("/users", async (MyDbContext context, UserBase user) => {
 app.MapPost("/orders", async (MyDbContext context, OrderBase order, IHubContext<OrderHub, IOrderClient> hub) =>
 {
     var convertedOrder = order.OrderConvert();
-    await hub.Clients.All.ReciveOrder(convertedOrder);
+    
     await context.AddAsync(convertedOrder);
-    await context.SaveChangesAsync(); return Results.Ok();
+    await context.SaveChangesAsync();
+    var created = await context.Orders.Where(o => o.UserId == convertedOrder.UserId && o.ProductID == convertedOrder.ProductID).FirstOrDefaultAsync();
+    var unixTime = ((DateTimeOffset)created.Created).ToUnixTimeSeconds();
+    await hub.Clients.All.ReciveOrder(convertedOrder.convertUnix());
+return Results.Ok();
 });
 app.MapPost("/products", async (MyDbContext context, BikeBase bike) => { await context.AddAsync(bike.BikeConvert()); await context.SaveChangesAsync(); return Results.Ok(); });
 app.Run();
