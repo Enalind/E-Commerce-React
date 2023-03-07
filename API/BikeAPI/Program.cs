@@ -35,6 +35,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseCors(MyAllowWebsiteOrigins);
 app.MapHub<OrderHub>("/hubs/order");
+app.MapHub<OrderInfoHub>("/hubs/order/with");
 app.MapGet("/products", async (MyDbContext context) => await context.Bikes.ToListAsync());
 app.MapGet("/orders", async (MyDbContext context) => {
     var orders = await context.Orders.ToListAsync();
@@ -57,6 +58,34 @@ app.MapGet("/orders/withperson", async (MyDbContext context) =>
             o.ProductID
         }
         );
+    return await query.ToListAsync();
+});
+app.MapGet("/orders/withperson/withproduct", async (MyDbContext context) =>
+{
+    var query = context.Orders.Join(context.Users,
+        o => o.UserId,
+        u => u.UserId,
+        (o, u) => new
+        {
+            o.Created,
+            o.OrderID,
+            Quantity = o.NrBikesOrdered,
+            Orderer = u.Name,
+            o.ProductID,
+        }
+        ).Join(
+            context.Bikes,
+            combined => combined.ProductID,
+            p => p.ProductID,
+            (combined, p) => new {
+                createdUnix = ((DateTimeOffset)combined.Created).ToUnixTimeSeconds(),
+                combined.Orderer,
+                combined.Quantity,
+                combined.OrderID,
+                p.Name
+            }
+        );
+        
     return await query.ToListAsync();
 });
 app.MapPost("/users", async (MyDbContext context, UserBase user) => { 

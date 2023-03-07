@@ -1,13 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import './HomePage.css';
-import SideBar from "../components/SideBar";
-import { HubConnectionBuilder} from '@microsoft/signalr';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip} from 'recharts';
-import moment from 'moment';    
-import fetchOrders from "../components/fetchOrders copy"; 
 
-export default function HomePage(){
-    const [orders, setOrders] = useState({items: [], dateRange: {keys: [], values: [], valLen: []}});
+export default async function fetchOrders(hub, route, funListen){
+    
     const latestOrder = useRef(null);
     latestOrder.current = orders.items;
     async function getOrdersHttp(){
@@ -31,6 +24,7 @@ export default function HomePage(){
         })
         return orderList
     }
+
     function mapToMap(orderList){
         var map = new Map()
         orderList.forEach((order) =>{
@@ -74,41 +68,13 @@ export default function HomePage(){
         console.log(newMap)
         var vals = Array.from(newMap.values())
         var keys = Array.from(newMap.keys())
-        setOrders({items: orderList, dateRange: {keys: keys, values: vals, valLen: vals.map((item) => item.length)}})
+        return {items: orderList, dateRange: {keys: keys, values: vals, valLen: vals.map((item) => item.length)}}
         
     }
 
-    async function getOrders(){
-        var orderList = await getOrdersHttp()
-        var orderListR = await getOrdersSignalR(orderList)
-        sortByDate(orderListR)
-        
-    }
-    useEffect(() => {
-        getOrders()
-        fetchOrders("https://localhost:44329/hubs/order/with", "https://localhost:44329/orders/withperson/withproduct", "ReciveInfoOrder")
-    }, [])
-    useEffect(() => {console.log(orders); console.log(orders.dateRange.valLen)}, [orders])
+    var orderList = await getOrdersHttp()
+    var orderListR = await getOrdersSignalR(orderList)
+    sortByDate(orderListR)
     
-    return(
-        <div className="page-wrapper">
-            <div>
-                    <AreaChart width={750} 
-                        height={400} 
-                        data={orders.dateRange.keys.map((item, index) => {var obj =  {name: item, value: orders.dateRange.valLen[index]}; return obj})}
-                        margin={{
-                            top: 10,
-                            right:30,
-                            left:0,
-                            bottom:0
-                        }}>
-                            <CartesianGrid strokeDasharray={"3 3"}/>
-                            <XAxis dataKey="name"/>
-                            <YAxis dataKey="value"/>
-                            <Tooltip/>
-                            <Area type="monotone" dataKey="value" stroke="#8884d8" fill="#8884d8" />
-                    </AreaChart>
-            </div>
-        </div>
-    )
+    useEffect(() => {console.log(orders); console.log(orders.dateRange.valLen)}, [orders])
 }

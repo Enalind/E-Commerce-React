@@ -2,3 +2,22 @@
     display: flex;
     flex-direction: row;
 }
+.graph-thing{
+    width: 79vw;
+    height: 99vh;
+}
+.tooltip-item{
+    display: flex;
+    background-color: rgb(103, 37, 37);
+    flex-direction: column;
+    margin: 10px;
+    border-radius: 10px;
+}
+.orderer-text{
+    font-weight: bold;
+    margin: 0;
+}
+.product-text{
+    padding-right: auto;
+    margin: 0;
+}
