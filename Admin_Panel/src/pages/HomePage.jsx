@@ -7,9 +7,10 @@ import moment from 'moment';
 import fetchOrders from "../components/fetchOrders copy"; 
 
 export default function HomePage(){
-    const [orders, setOrders] = useState({items: [], dateRange: {keys: [], values: [], valLen: []}});
-    const latestOrder = useRef(null);
-    latestOrder.current = orders.items;
+    const [orders, setOrders] = useState([]);
+    const [signalROrder, setSignalROrder] = useState({})
+    const [dates, setDates] = useState({keys: [], values: [], valLen: []})
+    
     async function getOrdersHttp(){
         const response = await fetch("https://localhost:44329/orders", {method: "GET"})
         if(!response.ok){
@@ -18,16 +19,18 @@ export default function HomePage(){
         const ordersJson = await response.json()
         return ordersJson
     } 
-
+    function signalRCallback(order, state){
+        setSignalROrder(order);
+    }
     async function getOrdersSignalR(orderList){
         const connection = new HubConnectionBuilder()
-            .withUrl("https://localhost:44329/hubs/order")
+            .withUrl("https://localhost:44329/hubs/order/with")
             .withAutomaticReconnect()
             .build();
         
         await connection.start()
-        connection.on("ReciveOrder", order => {
-            return orderList.push(order)
+        connection.on("ReciveOrderNew",(order) => {
+            signalRCallback(order)
         })
         return orderList
     }
@@ -46,6 +49,15 @@ export default function HomePage(){
         })
         return map
     }
+    useEffect(() => {
+        var order = signalROrder
+        console.log(order)
+        console.log(orders)
+        console.log("Hello")
+        var orderss = orders.slice()
+        orderss.push(order)
+        sortByDate(orderss)
+    }, [signalROrder])
     function enumerateDaysBetweenDates (map, orderList){
         var mapCopy = new Map(map)
         var endDateValue = [...mapCopy.values()].pop().pop()
@@ -65,7 +77,9 @@ export default function HomePage(){
     function mapSort(map){
         return new Map([...map.entries()].sort())
     }
-    async function sortByDate(orderList){
+    function sortByDate(orderList){
+        console.log("orderList")
+        console.log(orderList)
         var map = mapToMap(orderList)
         console.log(map)
         console.log(orderList)
@@ -74,7 +88,8 @@ export default function HomePage(){
         console.log(newMap)
         var vals = Array.from(newMap.values())
         var keys = Array.from(newMap.keys())
-        setOrders({items: orderList, dateRange: {keys: keys, values: vals, valLen: vals.map((item) => item.length)}})
+        setOrders(orderList)
+        setDates({keys: keys, values: vals, valLen: vals.map((item) => item.length)})
         
     }
 
@@ -82,20 +97,18 @@ export default function HomePage(){
         var orderList = await getOrdersHttp()
         var orderListR = await getOrdersSignalR(orderList)
         sortByDate(orderListR)
-        
     }
     useEffect(() => {
         getOrders()
-        fetchOrders("https://localhost:44329/hubs/order/with", "https://localhost:44329/orders/withperson/withproduct", "ReciveInfoOrder")
+        
     }, [])
-    useEffect(() => {console.log(orders); console.log(orders.dateRange.valLen)}, [orders])
     
     return(
         <div className="page-wrapper">
             <div>
                     <AreaChart width={750} 
                         height={400} 
-                        data={orders.dateRange.keys.map((item, index) => {var obj =  {name: item, value: orders.dateRange.valLen[index]}; return obj})}
+                        data={dates.keys.map((item, index) => {var obj =  {name: item, value: dates.valLen[index]}; return obj})}
                         margin={{
                             top: 10,
                             right:30,

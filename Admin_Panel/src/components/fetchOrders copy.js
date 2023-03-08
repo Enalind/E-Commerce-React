@@ -1,5 +1,6 @@
 
 import { HubConnectionBuilder} from '@microsoft/signalr';
+
 export default async function fetchOrders(hub, route, funListen){
     
     async function getItemsHttp(){
@@ -11,21 +12,16 @@ export default async function fetchOrders(hub, route, funListen){
         return itemsJson
     } 
 
-    async function getItemsSignalR(itemList){
+    function getItemsSignalR(itemList){
         const connection = new HubConnectionBuilder()
             .withUrl(hub)
             .withAutomaticReconnect()
             .build();
         
-        await connection.start()
-        connection.on(funListen, item => {
-            itemList.push(item)
-            console.log(item)
-            return itemList
-        })
-        return itemList
+        return connection
     }
     var itemList = await getItemsHttp()
-    itemList = await getItemsSignalR(itemList)
-    console.log(itemList)
+    var conn; 
+    conn = getItemsSignalR(itemList)
+    return conn
 }

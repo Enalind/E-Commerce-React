@@ -94,7 +94,7 @@ app.MapPost("/users", async (MyDbContext context, UserBase user) => {
     var createdID = new { id = context.Users.Where(u => u.Adress == user.Adress && u.Email == user.Email).SingleOrDefault().UserId };
     
     return Results.Ok(createdID); });
-app.MapPost("/orders", async (MyDbContext context, OrderBase order, IHubContext<OrderHub, IOrderClient> hub) =>
+app.MapPost("/orders", async (MyDbContext context, OrderBase order, IHubContext<OrderInfoHub, IOrderInfoClient> hub) =>
 {
     var convertedOrder = order.OrderConvert();
     
@@ -102,7 +102,8 @@ app.MapPost("/orders", async (MyDbContext context, OrderBase order, IHubContext<
     await context.SaveChangesAsync();
     var created = await context.Orders.Where(o => o.UserId == convertedOrder.UserId && o.ProductID == convertedOrder.ProductID).FirstOrDefaultAsync();
     var unixTime = ((DateTimeOffset)created.Created).ToUnixTimeSeconds();
-    await hub.Clients.All.ReciveOrder(convertedOrder.convertUnix());
+
+    await hub.Clients.All.ReciveOrderNew(convertedOrder.convertUnix().convert(context));
 return Results.Ok();
 });
 app.MapPost("/products", async (MyDbContext context, BikeBase bike) => { await context.AddAsync(bike.BikeConvert()); await context.SaveChangesAsync(); return Results.Ok(); });
