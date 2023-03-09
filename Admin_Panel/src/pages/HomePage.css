@@ -1,23 +1,20 @@
-.page-wrapper{
-    display: flex;
-    flex-direction: row;
+.main-page-wrapper{
+    margin: 1vh 1vw 1vh;
+    width: 98vw;
+    height: 98vh;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(100px, 1fr));
+    grid-template-rows: repeat(3, minmax(100px, 1fr));
 }
-.graph-thing{
-    width: 79vw;
-    height: 99vh;
+.main-chart{
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }
-.tooltip-item{
-    display: flex;
-    background-color: rgb(103, 37, 37);
-    flex-direction: column;
-    margin: 10px;
-    border-radius: 10px;
-}
-.orderer-text{
-    font-weight: bold;
-    margin: 0;
-}
-.product-text{
-    padding-right: auto;
-    margin: 0;
+.pie{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
 }
